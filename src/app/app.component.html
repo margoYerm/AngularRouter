@@ -8,11 +8,18 @@
         <span>Courses</span>
       </a>
 
-      <a class="menu-item" mat-button>
+      <!-- Relative [routerLink]="'about'" for link this menu item with
+         path in routes elems -->
+      <a class="menu-item" mat-button
+        routerLink="/about" 
+        routerLinkActive="menu-item-active">
         <span>About</span>
       </a>
 
-      <a mat-button class="menu-item">
+      <!-- Absolute path routerLink="/login"  -->
+      <a mat-button class="menu-item" 
+        routerLink="/login" 
+        routerLinkActive="menu-item-active">
         <mat-icon>account_circle</mat-icon>
         <span>Login</span>
       </a>
@@ -45,5 +52,7 @@
 
   <loading></loading>
 
+  <!-- The routed views render in the <router-outlet>-->
+  <router-outlet></router-outlet>
 </mat-sidenav-container>
 
