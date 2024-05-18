@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Course} from '../model/course';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -8,23 +9,16 @@ import {Course} from '../model/course';
     styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-
     course: Course;
-
     couponCode: string;
 
-
-    constructor() {
-
-
-    }
+    constructor(private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
-
-
+        //snapshot contains all information about current route
+        //data contains all date for this component == resolve: {course: courseResolver}
+        this. course = this.activatedRoute.snapshot.data["course"];
     }
-
-
 }
 
 
