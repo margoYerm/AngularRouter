@@ -16,9 +16,7 @@ export class LessonsListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.lessons = this.route.snapshot.data["lessons"];
-
   }
 
 }

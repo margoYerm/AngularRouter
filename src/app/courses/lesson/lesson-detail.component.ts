@@ -11,18 +11,45 @@ import {map} from "rxjs/operators";
 })
 export class LessonDetailComponent implements OnInit {
 
+  /*With this way we use same instance of component, but different data*/
   lesson$: Observable<LessonDetail>;
+  
+  //With this way not working next and previous methods, because we using
+  //the same lesson component and same data.
+  //lesson: LessonDetail; //for lesson, static obj. 
 
-  constructor() {
-
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    ) {
     console.log("Created LessonDetailComponent...");
-
   }
 
   ngOnInit() {
+    /*Observable emit new data for this component all the time*/
+    this.lesson$ = this.activatedRoute.data.pipe(
+      map(data => data['lesson'])
+    ) //Observable
 
+    /*Snapshot emit just first value when a component was created*/
+    //this.lesson = this.activatedRoute.snapshot.data['lesson']; //static obj
   }
 
+  previous(lesson) {   
+    // current http://localhost:4200/courses/angular-router-course/lessons/5
+    //relative is http://localhost:4200/courses/angular-router-course
+    this.router.navigate(
+      //it's important *ngIf="!lesson.first"
+      ['lessons', lesson.seqNo - 1], 
+      {relativeTo: this.activatedRoute.parent}
+    )
+  }
 
-
+  next(lesson) {
+    this.router.navigate(
+      //it's important *ngIf="!lesson.last"
+      ['lessons', lesson.seqNo + 1], 
+      {relativeTo: this.activatedRoute.parent}
+    )
+  }
 }
