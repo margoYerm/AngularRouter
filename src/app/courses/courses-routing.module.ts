@@ -7,6 +7,7 @@ import { LessonDetailComponent } from './lesson/lesson-detail.component';
 import { LessonsListComponent } from './lessons-list/lessons-list.component';
 import { lessonsResolver } from './services/lessons.resolver';
 import { lessonDetailResolver } from './services/lesson-detail.resolver';
+import { AuthGuard, AuthGuardChild } from '../services/auth.guard';
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
     //property url
     path: ':courseUrl', //variable
     component: CourseComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuardChild],
     children: [
       { //this component will be showed inside this Course component
         path: '', //http:localhost:4200/courses/router-in-depth

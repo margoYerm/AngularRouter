@@ -9,18 +9,24 @@ const AUTH_DATA = "auth_data";
 @Injectable({
     providedIn: 'root'
 })
+//This is a store because we using here BehaviorSubject
 export class AuthStore {
-
+    //BehaviorSubject needs initial value and this subj keep 2 values 
+    //(current and previous)
     private subject = new BehaviorSubject<User>(null);
 
-    user$ : Observable<User> = this.subject.asObservable();
-
+    //to get info about state of user status we need inject AuthStore 
+    //and subscribe to the user$
+    user$ : Observable<User> = this.subject.asObservable(); 
+    
+    //2 Observables gives info about user state also for show login/logout btn
     isLoggedIn$ : Observable<boolean>;
     isLoggedOut$ : Observable<boolean>;
 
-    constructor(private http: HttpClient) {
+    //calling in startup time, before ngOnInit 
+    constructor(private http: HttpClient) { //calling in startup time
 
-        this.isLoggedIn$ = this.user$.pipe(map(user => !!user));
+        this.isLoggedIn$ = this.user$.pipe(map(user => !!user)); // Boolean(user)
 
         this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
 
@@ -47,6 +53,4 @@ export class AuthStore {
         this.subject.next(null);
         localStorage.removeItem(AUTH_DATA);
     }
-
-
 }
