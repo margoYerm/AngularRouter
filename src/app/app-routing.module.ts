@@ -3,6 +3,7 @@ import {Routes, RouterModule, PreloadAllModules, UrlSerializer} from '@angular/r
 import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CanLoadAuthGuard } from './services/can-load-auth.guard';
 
 
 const routes: Routes = [
@@ -13,11 +14,12 @@ const routes: Routes = [
   },{
     path: "courses", //courses/angular-router-course/17     
     //this is asynchronous operation, which is a function without args
-    //and it will return a Promis witch contains a series of child routes
+    //and it will return a Promise witch contains a series of child routes
     loadChildren: 
       //import is Promise that return us file, In then we take this file 
       //and load CoursesModule 
-      () => import('./courses/courses.module').then(m => m.CoursesModule) 
+      () => import('./courses/courses.module').then(m => m.CoursesModule),
+      canMatch: [CanLoadAuthGuard],
   },{
     path: 'login', // part of url
     component: LoginComponent, //component that we showing on this path
