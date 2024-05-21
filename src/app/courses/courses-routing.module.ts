@@ -8,6 +8,7 @@ import { LessonsListComponent } from './lessons-list/lessons-list.component';
 import { lessonsResolver } from './services/lessons.resolver';
 import { lessonDetailResolver } from './services/lesson-detail.resolver';
 import { AuthGuard, AuthGuardChild } from '../services/auth.guard';
+import { ConfirmExitGuard } from '../services/confirm-exit.guard';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
     component: CourseComponent,
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuardChild],
+    canDeactivate: [ConfirmExitGuard],
     children: [
       { //this component will be showed inside this Course component
         path: '', //http:localhost:4200/courses/router-in-depth

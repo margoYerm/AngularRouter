@@ -19,6 +19,12 @@ export class CourseComponent implements OnInit {
         //data contains all date for this component == resolve: {course: courseResolver}
         this. course = this.activatedRoute.snapshot.data["course"];
     }
+
+    confirmExit() {        
+        return confirm(
+            `Are you sure that you want to exit ${this.course.description}?`
+        );    
+    }
 }
 
 
