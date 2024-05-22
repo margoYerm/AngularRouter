@@ -4,9 +4,12 @@
 
     <div class="toolbar-tools">
 
+      <!-- For don't make active Courses link if they children are active
+      add [routerLinkActiveOptions]="{exact: true}" -->
       <a class="menu-item" mat-button 
       routerLink="/courses"
-      routerLinkActive="menu-item-active" >
+      routerLinkActive="menu-item-active" 
+      [routerLinkActiveOptions]="{exact: true}">
         <span>Courses</span>
       </a>
 
