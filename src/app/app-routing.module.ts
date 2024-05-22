@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule, PreloadAllModules, UrlSerializer} from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules, UrlSerializer, NoPreloading} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { CanLoadAuthGuard } from './services/can-load-auth.guard';
+import { CanMatchAuthGuard } from './services/can-match-auth.guard';
+import { CustomPreloadingStrategy } from './services/custom-preloading.strategy';
 
 
 const routes: Routes = [
@@ -19,7 +20,10 @@ const routes: Routes = [
       //import is Promise that return us file, In then we take this file 
       //and load CoursesModule 
       () => import('./courses/courses.module').then(m => m.CoursesModule),
-      canMatch: [CanLoadAuthGuard],
+    canMatch: [CanMatchAuthGuard], //alternative for canLoad (not loaded before login)
+    data: {
+      preload: true, //or false if we don't want preload this module
+    }
   },{
     path: 'login', // part of url
     component: LoginComponent, //component that we showing on this path
@@ -38,14 +42,16 @@ const routes: Routes = [
 @NgModule({
   imports: [
     //This function for setup router 
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {
+      //preloadingStrategy: NoPreloading, //default value
+      //preloadingStrategy: PreloadAllModules, // for all modules  
+      preloadingStrategy: CustomPreloadingStrategy,    
+    })
   ],
   exports: [RouterModule],
   providers: [
-
+    CustomPreloadingStrategy,
   ]
 })
-export class AppRoutingModule {
 
-
-}
+export class AppRoutingModule {}

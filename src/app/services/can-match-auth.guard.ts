@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { first, tap } from "rxjs/operators";
 
 
-export const CanLoadAuthGuard: CanMatchFn = (
+export const CanMatchAuthGuard: CanMatchFn = (
   route: Route, segments: UrlSegment[]
   ): Observable<boolean | UrlTree> =>  {
     const auth = inject(AuthStore);
