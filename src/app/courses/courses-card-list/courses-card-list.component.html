@@ -14,7 +14,8 @@
     </mat-card-content>
 
     <mat-card-actions class="course-actions">
-
+        <!-- [queryParams]="{couponCode: 'NEW_YEAR'}" we passing query params
+        to the CourseComponent  -->
         <button  mat-raised-button color="primary"
             [routerLink]="[course.url]" [queryParams]="{couponCode: 'NEW_YEAR'}">
             VIEW COURSE
