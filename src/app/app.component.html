@@ -8,8 +8,7 @@
       add [routerLinkActiveOptions]="{exact: true}" -->
       <a class="menu-item" mat-button 
       routerLink="/courses"
-      routerLinkActive="menu-item-active" 
-      [routerLinkActiveOptions]="{exact: true}">
+      routerLinkActive="menu-item-active">
         <span>Courses</span>
       </a>
 
@@ -32,7 +31,10 @@
 
     </div>
 
-    <a mat-button class="menu-item" *ngIf="auth.isLoggedIn$ | async">
+    <!-- This is router link for secondary router-outlet name="chat" 
+    http://localhost:4200/courses(chat:helpdesk-chat) click transform url-->
+    <a mat-button class="menu-item" *ngIf="auth.isLoggedIn$ | async"
+      [routerLink]="[{outlets: {chat: ['helpdesk-chat']}}]">
       <mat-icon>help</mat-icon>
     </a>
 
@@ -58,7 +60,11 @@
 
   <loading [detectRoutingOnGoing]="true"></loading>
 
-  <!-- The routed views render in the <router-outlet>-->
+  <!-- The routed views render in the <router-outlet>, this is primary 
+    outlet to the page-->
   <router-outlet></router-outlet>
 </mat-sidenav-container>
 
+
+<!-- For to project here additional component, using Angular route -->
+<router-outlet name="chat"></router-outlet>

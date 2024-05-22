@@ -8,7 +8,11 @@
 
     <button mat-raised-button color="primary">Send Message</button>
 
-    <button mat-raised-button>Close Chat</button>
+    <!-- routerLink for close chat component -->
+    <button mat-raised-button 
+      [routerLink]="['', {outlets: {chat: null}}]">
+      Close Chat
+    </button>
 
   </div>
 

@@ -5,6 +5,7 @@ import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CanMatchAuthGuard } from './services/can-match-auth.guard';
 import { CustomPreloadingStrategy } from './services/custom-preloading.strategy';
+import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [
@@ -30,8 +31,12 @@ const routes: Routes = [
   }, {
     path: 'about',
     component: AboutComponent,
-  },
-  {
+  },{
+    /*Rout for the secondary <router-outlet name="chat"/>*/
+    path: 'helpdesk-chat',
+    component: ChatComponent,
+    outlet: 'chat' //name of the router-outlet
+  }, {
     //** match with all path, so it should be at the end and will use 
     //when not matches with previous paths
     path: '**', 
