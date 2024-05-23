@@ -48,9 +48,24 @@ const routes: Routes = [
   imports: [
     //This function for setup router 
     RouterModule.forRoot(routes, {
+      //this object let us customize behavior of router module
       //preloadingStrategy: NoPreloading, //default value
       //preloadingStrategy: PreloadAllModules, // for all modules  
-      preloadingStrategy: CustomPreloadingStrategy,    
+      preloadingStrategy: CustomPreloadingStrategy, //for few modules, custom
+      //it will logging to the console info about each nav
+      enableTracing: false, //false by default, for debugging router
+      //adding the # to the url, access like in html to section by id 
+      //if we can't download index page (server hard setting) after reload with
+      //not home (default) url. http://localhost:4200/#/courses/angular-router-course/lessons/1
+      //Server will ignoring all after this /#/ segment and download index page 
+      useHash: true, //if needed
+      //this value will scroll to the top in next page and to last position on 
+      //previous page; top, by default. 
+      scrollPositionRestoration: 'enabled', //Recommended value. 
+      //for access to all path variables, when we do resolver
+      //lessonDetailResolver add access  route.parent.paramMap.get('courseUrl')
+      //without parent 
+      paramsInheritanceStrategy: 'always', //Recommended value
     })
   ],
   exports: [RouterModule],
